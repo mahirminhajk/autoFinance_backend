@@ -1,0 +1,166 @@
+const newDelar = new Dealer({
+    name: "Dealer2",
+    type: 'dealer',
+    categroy: 'gold',
+    shopname: 'dealer2shop',
+    phoneno: '8086009802',
+    place: 'kottakkal',
+    staffs: [
+        {
+            name: "staff1",
+            mobileno: '1112223330'
+        },
+        {
+            name: "staff2",
+            mobileno: '1201011550'
+        },
+    ]
+})
+await newDelar.save();
+_______________________________________________________________________________
+
+
+const newCar = new Car({
+    carName: 'BNW',
+    model: '2003',
+    regNo: 'KL012003',
+    ownership: 2,
+})
+await newCar.save();
+_______________________________________________________________________________
+
+
+const newBank = new Bank({
+    bankName: 'SBI',
+    branch: 'Malappuram',
+    IFSC: 'SLWODK223',
+    address: 'Malappuram',
+    branchPolicy: 'noting',
+    mandatoryDoc: 'noting',
+    employees: [
+        {
+            name: 'emplo1',
+            role: 'employee',
+            email: 'employee@gmail.com',
+            phoneNo: '1020548020',
+        },
+        {
+            name: 'emplo2',
+            role: 'manager',
+            email: 'manager@gmail.com',
+            phoneNo: '1414141412',
+        },
+    ],
+})
+await newBank.save();
+_______________________________________________________________________________
+
+
+const newCus = new Customer({
+    general: {
+        name: 'Rahul',
+        mobileNo: '1234567890',
+        category: 'Gold',
+        status: 'unconform1',
+        email: 'rahul@gmail.com',
+        dealer: newDelar._id,
+        car: newCar._id,
+        bank: newBank._id,
+        executive: 1,
+        method: "normal",
+        policy: "bank",
+    },
+    statusHistory: [
+        {
+            status: 'unconform1',
+            updatedBy: 'dev'
+        }
+    ],
+    verification: [
+        {
+            head: 'Passport',
+            values: {
+                expiryDate: false,
+                dob: true,
+                address: true,
+            }
+        },
+        {
+            head: 'driving licence',
+            values: {
+                expiryDate: false,
+                dob: true,
+                address: true,
+            }
+        },
+        {
+            head: 'land tax',
+            values: {
+                expiryDate: false,
+                dob: true,
+                address: true,
+            }
+        },
+    ],
+    readyLogin: [
+        {
+            head: 'applicant',
+            values: {
+                phone2: '1234567890',
+                fatherName: 'hello',
+                motherName: 'world',
+            }
+        },
+        {
+            head: 'co applicant',
+            values: {
+                name: 'iam',
+                fatherName: 'hello',
+                motherName: 'world',
+            }
+        },
+        {
+            head: 'business details',
+            values: {
+                type: 'sole',
+                buinessName: 'programming world',
+                landmark: 'main post office',
+            }
+        },
+    ],
+    ftr: [
+        {
+            head: 'ftr',
+            values: {
+                ftrStatus: 'Pending',
+                reason: 'helloworldheelo kfhwod d, wdfj dwkd ekdfwjefkd fwldk flewkjd',
+                fi: true,
+            }
+        },
+        {
+            head: 'cibil report',
+            values: {
+                score: 8.5,
+                reason: 'helloworldheelo kfhwod d, wdfj dwkd ekdfwjefkd fwldk flewkjd',
+                status: 'reject',
+            }
+        },
+        {
+            head: 'valuation',
+            values: {
+                loaction: 'malappuram',
+                reason: 'helloworldheelo kfhwod d, wdfj dwkd ekdfwjefkd fwldk flewkjd',
+                name: 'mahir',
+            }
+        },
+    ],
+})
+await newCus.save();
+_______________________________________________________________________________
+
+
+
+//populate info
+await person.populate(['stories', 'fans']);
+const comments = await Comment.find().populate('product').populate('blogPost');
+populate({ path: 'posts', select: 'title' }).
