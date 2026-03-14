@@ -38,7 +38,7 @@ export function uploadFile(fileBuffer, fileName, mimetype, acl = 'public-read') 
 }
 
 //* deleteFile(db.imageName)
-export function deleteFile(fileName) {
+export async function deleteFile(fileName) {
     const deleteParams = {
         Bucket: process.env.AWS_BUCKET_NAME,
         Key: fileName,
@@ -47,7 +47,8 @@ export function deleteFile(fileName) {
         message: "Image Deleted",
         fileName: fileName,
     });
-    return s3Client.send(new DeleteObjectCommand(deleteParams));
+    await s3Client.send(new DeleteObjectCommand(deleteParams));
+    return true;
 }
 
 //* getObjectSignedURL(db.imageName)
