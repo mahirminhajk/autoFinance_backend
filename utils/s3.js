@@ -19,7 +19,7 @@ export const s3Client = new S3Client({
 //* uploadFile(file.buufer, imageName, file.mimetype)
 //? const fileURL = `https://${bucketName}.s3.amazonaws.com/${fileName}`;
 //? https://leadup-crm.s3.ap-south-1.amazonaws.com/sbi_1684313708260
-export function uploadFile(fileBuffer, fileName, mimetype, acl = 'private') {
+export function uploadFile(fileBuffer, fileName, mimetype, acl = 'public-read') {
     const uploadParams = {
         Bucket: process.env.AWS_BUCKET_NAME,
         Body: fileBuffer,

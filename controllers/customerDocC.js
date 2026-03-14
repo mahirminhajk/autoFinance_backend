@@ -1,7 +1,7 @@
 //* model
 import Customer from "../models/Customer.js";
 //* helpers
-import { deleteFile, getObjectSignedURL, s3Client } from "../utils/s3.js";
+import { deleteFile, s3Client } from "../utils/s3.js";
 //* utils
 import { createErr } from "../utils/createErr.js";
 import mongoose from "mongoose";
@@ -66,7 +66,7 @@ export const addDoc = async (req, res, next) => {
           Body: file.buffer,
           Key: file.name,
           ContentType: file.mimetype,
-          ACL: "private",
+          ACL: "public-read",
         };
 
         try {
@@ -179,7 +179,7 @@ export const updateDoc = async (req, res, next) => {
           Body: file.buffer,
           Key: file.name,
           ContentType: file.mimetype,
-          ACL: "private",
+          ACL: "public-read",
         };
 
         try {
@@ -234,9 +234,9 @@ export const getDocs = async (req, res, next) => {
         //* check the doc.status, if the job is done, then send the image URL.
         if (doc.status === "done") {
           if (doc.img1 && doc.img1 !== "error")
-            doc.img1 = await getObjectSignedURL(doc.img1);
+            doc.img1 = `https://leadup-crm.s3.ap-south-1.amazonaws.com/${doc.img1}`;
           if (doc.img2 && doc.img2 !== "error")
-            doc.img2 = await getObjectSignedURL(doc.img2);
+            doc.img2 = `https://leadup-crm.s3.ap-south-1.amazonaws.com/${doc.img2}`;
         } else {
           doc.img1 = doc.status;
           doc.img2 = doc.status;
@@ -244,7 +244,6 @@ export const getDocs = async (req, res, next) => {
         return doc;
       })
     );
-
     //* res
     res.status(200).json(modifiedDocs);
   } catch (err) {
@@ -278,9 +277,9 @@ export const getDoc = async (req, res, next) => {
     const docStatus = doc.status;
     if (docStatus === "done") {
       if (doc.img1 && doc.img1 !== "error")
-        doc.img1 = await getObjectSignedURL(doc.img1);
+        doc.img1 = `https://leadup-crm.s3.ap-south-1.amazonaws.com/${doc.img1}`;
       if (doc.img2 && doc.img2 !== "error")
-        doc.img2 = await getObjectSignedURL(doc.img2);
+        doc.img2 = `https://leadup-crm.s3.ap-south-1.amazonaws.com/${doc.img2}`;
     } else {
       doc.imgname = docStatus;
       doc.imgname1 = docStatus;

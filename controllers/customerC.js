@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 import Customer from "../models/Customer.js";
 //* utils
 import { createErr } from "../utils/createErr.js";
-import { deleteFile, getObjectSignedURL } from "../utils/s3.js";
+import { deleteFile } from "../utils/s3.js";
 import {
   sendTextWhatsappMessage,
   sendWhatsappMessage,
@@ -135,10 +135,10 @@ export const getCustomer = async (req, res, next) => {
     //* docuploads transform
     for (let doc of docuploads) {
       if (doc.img1) {
-        doc.img1 = await getObjectSignedURL(doc.img1);
+        doc.img1 = `https://leadup-crm.s3.ap-south-1.amazonaws.com/${doc.img1}`;
       }
       if (doc.img2) {
-        doc.img2 = await getObjectSignedURL(doc.img2);
+        doc.img2 = `https://leadup-crm.s3.ap-south-1.amazonaws.com/${doc.img2}`;
       }
     }
 
